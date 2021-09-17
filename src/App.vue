@@ -3,6 +3,16 @@
     <div class="search-box">
       <input type="text" class="search-bar" placeholder="search..."/>
     </div>
+    <div class="weather-wrap">
+      <div class="location-box">
+        <div class="location">Yokohama, Japan</div>
+        <div class="date">Friday 17 September 2020</div>
+      </div>
+      <div class="weather-box">
+        <div class="temp">9°C</div>
+        <div class="weather">Rain</div>
+      </div>
+    </div>
   </main>
 </template>
 
@@ -39,7 +49,7 @@ main {
   min-height:100vh;
   padding: 25px;
 
-  background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0, 0.75));
+  background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.75));
 }
 
 .search-box {
@@ -58,9 +68,61 @@ main {
   appearance: none;
   border: none;
   outline: none;
+  background: none;
 
+  box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.25);
   background-color: rgba(255, 255, 255, 0.5);
-  border-radius: 0px, 16px, 0px, 16px;
+  border-radius: 0px 16px 0px 16px;
   transition: 0.4s;
+}
+
+.search-box .search-bar:focus {
+  box-shadow: 0px 0px 16px rgba(0, 0, 0, 0.25);
+  background-color: rgba(255, 255, 255, 0.75);
+  border-radius: 16px 0px 16px 0px;
+}
+
+.location-box .location {
+  color: white;
+  font-size: 32px;
+  font-weight: 500;
+  text-align: center;
+  text-shadow: 1px 3px rgba(0, 0, 0, 0.25);
+}
+
+.location-box .date {
+  color: white;
+  font-size: 20px;
+  font-weight: 300;
+  font-style: italic;
+  text-align: center;
+  text-shadow: 1px 3px rgba(0, 0, 0, 0.25);
+}
+
+.weather-box {
+  text-align: center;
+}
+
+.weather-box .temp {
+  display: inline-block;
+  padding: 10px 25px;
+  color: white;
+  font-size: 102px;
+  font-weight: 900;
+
+  text-shadow: 3px 6px rgba(0, 0, 0, 0.25);
+  background-color: rgba(255, 255, 255, 0.25);
+  border-radius: 16px;
+  margin: 30px 0px;
+
+  box-shadow: 3px 6px rgba(0, 0, 0, 0.25);
+}
+
+.weather-box .weather {
+  color: white;
+  font-size: 48px;
+  font-weight: 700;
+  font-style: italic;
+  text-shadow: 3px 6px rgba(0, 0, 0, 0.25);
 }
 </style>
