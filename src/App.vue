@@ -1,28 +1,30 @@
 <template>
-  <main>
-    <div class="search-box">
-      <!-- v-model uses data for string value -->
-      <!-- @keypress is short for v-on:keypress, any keypress will fire function -->
-      <input 
-      type="text" 
-      class="search-bar" 
-      placeholder="search..."
-      v-model="query"
-      @keypress="fetchWeather"
-      />
-    </div>
-    <!-- v-if will only use variables (weather.main, etc) if weather.main is undefined -->
-    <div class="weather-wrap" v-if="typeof weather.main != 'undefined'">
-      <div class="location-box">
-        <div class="location">{{ weather.name }},{{ weather.sys.country}}</div>
-        <div class="date"> {{ dateBuilder() }} </div>
+  <div id="app" :class="typeof weather.main != 'undefined' && weather.main.temp > 16 ? 'warm' : ''">
+    <main>
+      <div class="search-box">
+        <!-- v-model uses data for string value -->
+        <!-- @keypress is short for v-on:keypress, any keypress will fire function -->
+        <input 
+        type="text" 
+        class="search-bar" 
+        placeholder="search..."
+        v-model="query"
+        @keypress="fetchWeather"
+        />
       </div>
-      <div class="weather-box">
-        <div class="temp">{{ Math.round(weather.main.temp)}}°C</div>
-        <div class="weather">{{weather.weather[0].main}}</div>
+      <!-- v-if will only use variables (weather.main, etc) if weather.main is undefined -->
+      <div class="weather-wrap" v-if="typeof weather.main != 'undefined'">
+        <div class="location-box">
+          <div class="location">{{ weather.name }},{{ weather.sys.country}}</div>
+          <div class="date"> {{ dateBuilder() }} </div>
+        </div>
+        <div class="weather-box">
+          <div class="temp">{{ Math.round(weather.main.temp)}}°C</div>
+          <div class="weather">{{weather.weather[0].main}}</div>
+        </div>
       </div>
-    </div>
-  </main>
+    </main>
+  </div>
 </template>
 
 <script>
@@ -30,7 +32,6 @@ export default {
   name: 'App',
   data () {
     return {
-      api_key: "fb03124f0ef820f6344d90f58c6e5af2",
       url_base: "https://api.openweathermap.org/data/2.5/",
       query: "",
       weather: {}
@@ -39,7 +40,7 @@ export default {
   methods: {
     fetchWeather (e) {
       if(e.key == "Enter") {
-        fetch(`${this.url_base}weather?q=${this.query}&units=metric&APPID=${this.api_key}`)
+        fetch(`${this.url_base}weather?q=${this.query}&units=metric&APPID=${process.env.VUE_APP_API_KEY}`)
         .then(res => {
           return res.json();
         }).then(this.setResults);
@@ -80,6 +81,11 @@ body {
   background-size: cover;
   background-position: bottom;
   transition: 0.4s;
+}
+
+#app.warm {
+    background-image: url('./assets/warm-bg.jpeg');
+
 }
 
 main {
